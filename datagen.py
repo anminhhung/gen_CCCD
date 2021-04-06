@@ -31,13 +31,18 @@ def parse_arguments():
         default="gendata",
     )
 
+    parser.add_argument("--type_image", type=str,
+        help="format type image *jpg, *png",
+        default="jpg",
+    )
+
     return parser.parse_args()
 
 '''
     format image namne: model_<image_name>_<count>.jpg
 '''
-def gen_with_model(num_gen=10, input_dir="Label2Gen", gen_output="gendata"):
-    list_image_path = glob2.glob(os.path.join(input_dir, '*.png'))
+def gen_with_model(num_gen=10, input_dir="Label2Gen", gen_output="gendata", type_image="jpg"):
+    list_image_path = glob2.glob(os.path.join(input_dir, '*.{}'.format(type_image)))
 
     for image_path in list_image_path:
         annot_path = os.path.join(input_dir, (image_path.split("/")[-1]).split(".")[0] + ".txt")
@@ -60,8 +65,8 @@ def gen_with_model(num_gen=10, input_dir="Label2Gen", gen_output="gendata"):
 '''
     format name: opencv_<image_name>_<count>.jpg
 '''
-def gen_with_opencv(number_gen=10, input_dir="Label2Gen", gen_output="gendata"):
-    list_image_path = glob2.glob(os.path.join(input_dir, '*.png'))
+def gen_with_opencv(number_gen=10, input_dir="Label2Gen", gen_output="gendata", type_image="jpg"):
+    list_image_path = glob2.glob(os.path.join(input_dir, '*.{}'.format(type_image)))
 
     for image_path in list_image_path:
         image_name = (image_path.split("/")[-1]).split(".")[0]
@@ -76,5 +81,5 @@ if __name__ == '__main__':
     if not os.path.exists(args.output_dir):
         os.mkdir(args.output_dir)
 
-    gen_with_opencv(args.number_gen, args.input_dir, args.output_dir)
-    gen_with_model(args.number_gen, args.input_dir, args.output_dir)
+    gen_with_opencv(args.number_gen, args.input_dir, args.output_dir, args.type_image)
+    gen_with_model(args.number_gen, args.input_dir, args.output_dir, args.type_image)
