@@ -72,7 +72,6 @@ def add_background_with_text_to_raw_image(background_image, background_image_pat
     background_image = cv2.cvtColor(background_image, cv2.COLOR_HSV2BGR)
     cv2.imwrite(background_image_path, background_image)
 
-
     # add text
     if cls != 'So':
         os.system("python3 trdg/run.py -c 1 -w 1 -f 40 -l vi -b --dict dictionary/{}.txt --image_dir crop_images/{} --output_dir gen_text_results/{}".format(cls, cls, cls))
@@ -101,9 +100,9 @@ def addTextToImage(background_image_path, raw_image, bbox, cls):
 
     # add text
     if cls != 'So':
-        os.system("python3 trdg/run.py -c 1 -w 1 -f 40 -l vi -b --dict dictionary/{}.txt --image_dir crop_images/{} --output_dir gen_text_results/{}".format(cls, cls, cls))
+        os.system("python3 libs/trdg/run.py -c 1 -w 1 -f 40 -l vi -b --dict dictionary/{}.txt --image_dir crop_images/{} --output_dir gen_text_results/{}".format(cls, cls, cls))
     else:
-        os.system("python3 trdg/run.py -c 1 -w 1 -f 40 -l vi -b --dict dictionary/So.txt --image_dir crop_images/So --output_dir gen_text_results/So --text_color '#ff0000,#e50000'")
+        os.system("python3 libs/trdg/run.py -c 1 -w 1 -f 40 -l vi -b --dict dictionary/So.txt --image_dir crop_images/So --output_dir gen_text_results/So --text_color '#ff0000,#e50000'")
 
     f = open("gen_text_results/info.txt", "r")
     background_with_text_image_path = f.read()
